@@ -179,4 +179,11 @@ To run the tests, execute the following command in your project's root directory
 * For specific test file run command 
   `npx jest <copy relative path>` 
 
+
+## Deployed API
+
+**URL :** `https://airport-api-erqf.onrender.com/api/airports/{iata_code}` 
+
+**Swagger URL :** `https://airport-api-erqf.onrender.com/api-docs`
+
   
