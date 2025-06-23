@@ -9,7 +9,8 @@ import * as path from 'path';
 import * as XLSX from 'xlsx';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './src/infrastructure/swaggerConfig';
-import { HTTP_STATUS, ERROR_MESSAGES, API_PATHS, INDEX_STRINGS } from './src/infrastructure/constants';
+import cors from 'cors';
+import { HTTP_STATUS, ERROR_MESSAGES, API_PATHS, INDEX_STRINGS, CORS_CONFIG } from './src/infrastructure/constants';
 
 dotenv.config();
 
@@ -22,6 +23,25 @@ const app: Express = express();
  * Server port number
  */
 const PORT: number = parseInt(process.env[INDEX_STRINGS.PORT_ENV] || INDEX_STRINGS.DEFAULT_PORT, 10);
+
+/**
+ * Configures CORS middleware
+ */
+app.use(cors({
+  origin: CORS_CONFIG.ALLOWED_ORIGINS.split(','),
+  methods: CORS_CONFIG.ALLOWED_METHODS,
+  allowedHeaders: CORS_CONFIG.ALLOWED_HEADERS,
+}));
+
+/**
+ * Configures Express middleware
+ */
+app.use(express[INDEX_STRINGS.JSON_MIDDLEWARE]());
+
+/**
+ * Sets up Swagger UI
+ */
+app.use(API_PATHS.SWAGGER_DOCS, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * Imports data from Excel file into MongoDB
@@ -131,16 +151,6 @@ const importData = async () => {
     console.error(INDEX_STRINGS.DATA_IMPORT_ERROR_LOG, error);
   }
 };
-
-/**
- * Configures Express middleware
- */
-app.use(express[INDEX_STRINGS.JSON_MIDDLEWARE]());
-
-/**
- * Sets up Swagger UI
- */
-app.use(API_PATHS.SWAGGER_DOCS, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * Starts the Express server

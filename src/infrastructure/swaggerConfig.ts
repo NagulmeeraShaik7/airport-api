@@ -16,6 +16,10 @@ const swaggerOptions = {
         url: `http://localhost:${process.env.PORT || 3000}`,
         description: 'Local server',
       },
+      {
+        url: 'https://airport-api-erqf.onrender.com',
+        description: 'Production server',
+      }
     ],
     components: {
       schemas: {

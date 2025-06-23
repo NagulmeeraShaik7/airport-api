@@ -180,3 +180,16 @@ export const INDEX_STRINGS = {
   STARTUP_ERROR_LOG: 'Startup Error:',
   ERROR_STACK_LOG: 'error',
 } as const;
+
+/**
+ * CORS configuration for the application
+ * @constant
+ * @property {string} ALLOWED_ORIGINS - Comma-separated list of allowed origins for CORS
+ * @property {string[]} ALLOWED_METHODS - Array of allowed HTTP methods for CORS  
+ * @property {string[]} ALLOWED_HEADERS - Array of allowed headers for CORS
+ */
+export const CORS_CONFIG = {
+  ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS || 'http://localhost:3000,https://airport-api-erqf.onrender.com',
+  ALLOWED_METHODS: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  ALLOWED_HEADERS: ['Content-Type', 'Authorization'],
+};
